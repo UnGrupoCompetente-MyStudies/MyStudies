@@ -147,7 +147,22 @@ document.addEventListener('DOMContentLoaded', function() {
         authScreen.style.display = 'flex';
         document.body.style.overflow = 'hidden';
     }
+    function hideAuthScreen() {
+        authScreen.style.display = 'none';
+        document.body.style.overflow = '';
+    }
 
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('register') === 'true') {
+        showAuthScreen('register');
+    } else {
+        showAuthScreen('login');
+    }
+
+    toggleAuthLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        showAuthScreen(isRegisterMode ? 'login' : 'register');
+    });
 
 
                           

@@ -103,5 +103,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
 
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const sectionId = this.dataset.section;
+            if (sectionId) {
+                showSection(sectionId);
+            }
+        });
+    });
+
+    document.querySelectorAll('[data-section-btn]').forEach(button => {
+        button.addEventListener('click', function() {
+            const sectionId = this.dataset.sectionBtn;
+            showSection(sectionId);
+        });
+    });
+
+    
+
 
                           

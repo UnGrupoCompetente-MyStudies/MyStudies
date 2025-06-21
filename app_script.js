@@ -29,4 +29,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const groupCreateMessage = document.getElementById('groupCreateMessage');
     const currentGroupList = document.getElementById('currentGroupList'); 
 
+    let isRegisterMode = false;
+
+    let currentUser = {
+        name: 'Estudiante Prueba',
+        email: 'prueba@universidad.edu.pe',
+        university: 'Universidad Genérica',
+        career: 'Mi Carrera Ideal',
+        interests: 'Estudiar, Aprender, Conectar'
+    };
+
+    let createdGroups = [
+        { name: 'Grupo de Estudio: Cálculo I', members: 8, description: 'Apoyo para ejercicios y dudas de Cálculo I.', type: 'estudio' },
+        { name: 'Club de Lectura Universitario', members: 15, description: 'Reuniones semanales para discutir libros.', type: 'social' }
+    ];
+
                           

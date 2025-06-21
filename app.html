@@ -130,3 +130,26 @@
                             <p><strong>Descripción:</strong> Apoyo para ejercicios y dudas de Cálculo I.</p>
                             <button class="btn-secondary">Ver Detalles</button>
                         </div>
+                        <div class="group-card">
+                            <h3>Club de Lectura Universitario</h3>
+                            <p><strong>Miembros:</strong> 15</p>
+                            <p><strong>Descripción:</strong> Reuniones semanales para discutir libros.</p>
+                            <button class="btn-secondary">Unirse</button>
+                        </div>
+                    </div>
+                    
+                    <div id="groupCreateFormContainer" class="form-modal-container hidden">
+                        <div class="form-modal-content">
+                            <h3>Crear Nuevo Grupo</h3>
+                            <form id="groupCreateForm">
+                                <label for="groupName">Nombre del Grupo</label>
+                                <input type="text" id="groupName" name="groupName" required>
+
+                                <label for="groupType">Tipo de Grupo</label>
+                                <select id="groupType" name="groupType">
+                                    <option value="estudio">Estudio</option>
+                                    <option value="social">Social</option>
+                                    <option value="deportivo">Deportivo</option>
+                                    <option value="cultural">Cultural</option>
+                                    <option value="otros">Otros</option>
+                                </select>

@@ -180,5 +180,46 @@ document.addEventListener('DOMContentLoaded', function() {
             return; 
         }
 
+ if (isRegisterMode) {
+            const name = document.getElementById('authName').value;
+            const university = document.getElementById('authUniversity').value;
+            const career = document.getElementById('authCareer').value;
+            const interests = document.getElementById('authInterests').value;
 
+            if (email && password && name && university && career && interests) {
+                authMessage.textContent = '¡Registro exitoso! Iniciando sesión...';
+                authMessage.classList.add('success');
+                authMessage.style.display = 'block';
+
+                currentUser = { name, email, university, career, interests };
+
+                setTimeout(() => {
+                    hideAuthScreen();
+                    userNameDisplay.textContent = currentUser.name;
+                    showSection('dashboard');
+                }, 1500);
+            } else {
+                authMessage.textContent = 'Por favor, completa todos los campos para registrarte.';
+                authMessage.classList.add('error');
+                authMessage.style.display = 'block';
+            }
+        } else { 
+            if (email && password) {
+                authMessage.textContent = 'Inicio de sesión exitoso. Redirigiendo...';
+                authMessage.classList.add('success');
+                authMessage.style.display = 'block';
+
+                userNameDisplay.textContent = currentUser.name;
+
+                setTimeout(() => {
+                    hideAuthScreen();
+                    showSection('dashboard');
+                }, 1500);
+            } else {
+                authMessage.textContent = 'Por favor, ingresa tu correo y contraseña.';
+                authMessage.classList.add('error');
+                authMessage.style.display = 'block';
+            }
+        }
+    });
                           

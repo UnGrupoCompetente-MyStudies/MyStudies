@@ -328,3 +328,6 @@ document.addEventListener('DOMContentLoaded', function() {
             groupCreateMessage.classList.remove('hidden');
         }
     });
+    
+    showAuthScreen(urlParams.get('register') === 'true' ? 'register' : 'login');
+});

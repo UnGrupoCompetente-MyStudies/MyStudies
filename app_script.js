@@ -222,4 +222,60 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-                          
+          document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        currentUser = {
+            name: 'Estudiante Prueba',
+            email: 'prueba@universidad.edu.pe',
+            university: 'Universidad Genérica',
+            career: 'Mi Carrera Ideal',
+            interests: 'Estudiar, Aprender, Conectar'
+        };
+        userNameDisplay.textContent = 'Estudiante';
+        showAuthScreen('login');
+    });
+
+    editProfileBtn.addEventListener('click', function() {
+        profileEditFormContainer.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; 
+    });
+
+    cancelEditProfileBtn.addEventListener('click', function() {
+        profileEditFormContainer.classList.add('hidden');
+        profileEditMessage.classList.add('hidden'); 
+        document.body.style.overflow = ''; 
+    });
+
+    profileEditForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        profileEditMessage.classList.add('hidden');
+        profileEditMessage.classList.remove('error', 'success');
+
+        const newName = document.getElementById('editName').value;
+        const newUniversity = document.getElementById('editUniversity').value;
+        const newCareer = document.getElementById('editCareer').value;
+        const newInterests = document.getElementById('editInterests').value;
+
+        if (newName && newUniversity && newCareer && newInterests) {
+            currentUser.name = newName;
+            currentUser.university = newUniversity;
+            currentUser.career = newCareer;
+            currentUser.interests = newInterests;
+
+            updateProfileDisplay(); 
+
+            profileEditMessage.textContent = '¡Perfil actualizado con éxito!';
+            profileEditMessage.classList.add('success');
+            profileEditMessage.classList.remove('hidden');
+
+            setTimeout(() => {
+                profileEditFormContainer.classList.add('hidden');
+                profileEditMessage.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 1500);
+        } else {
+            profileEditMessage.textContent = 'Por favor, completa todos los campos.';
+            profileEditMessage.classList.add('error');
+            profileEditMessage.classList.remove('hidden');
+        }
+    });                 

@@ -279,3 +279,52 @@ document.addEventListener('DOMContentLoaded', function() {
             profileEditMessage.classList.remove('hidden');
         }
     });                 
+     createGroupBtn.addEventListener('click', function() {
+        groupCreateFormContainer.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; 
+    });
+
+    cancelCreateGroupBtn.addEventListener('click', function() {
+        groupCreateFormContainer.classList.add('hidden');
+        groupCreateMessage.classList.add('hidden'); 
+        groupCreateForm.reset(); 
+        document.body.style.overflow = ''; 
+    });
+
+    groupCreateForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        groupCreateMessage.classList.add('hidden');
+        groupCreateMessage.classList.remove('error', 'success');
+
+        const groupName = document.getElementById('groupName').value;
+        const groupType = document.getElementById('groupType').value;
+        const groupDescription = document.getElementById('groupDescription').value;
+
+        if (groupName && groupType && groupDescription) {
+            const newGroup = {
+                name: groupName,
+                type: groupType,
+                description: groupDescription,
+                members: 1 
+            };
+            createdGroups.push(newGroup); 
+
+            renderGroupList(); 
+
+            groupCreateMessage.textContent = `¡Grupo "${groupName}" creado con éxito!`;
+            groupCreateMessage.classList.add('success');
+            groupCreateMessage.classList.remove('hidden');
+
+            groupCreateForm.reset(); 
+
+            setTimeout(() => {
+                groupCreateFormContainer.classList.add('hidden');
+                groupCreateMessage.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 1500);
+        } else {
+            groupCreateMessage.textContent = 'Por favor, completa todos los campos para crear el grupo.';
+            groupCreateMessage.classList.add('error');
+            groupCreateMessage.classList.remove('hidden');
+        }
+    });

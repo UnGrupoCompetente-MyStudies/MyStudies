@@ -21,4 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const profileEditForm = document.getElementById('profileEditForm');
     const cancelEditProfileBtn = document.getElementById('cancelEditProfileBtn');
     const profileEditMessage = document.getElementById('profileEditMessage');
+
+        const createGroupBtn = document.getElementById('createGroupBtn');
+    const groupCreateFormContainer = document.getElementById('groupCreateFormContainer');
+    const groupCreateForm = document.getElementById('groupCreateForm');
+    const cancelCreateGroupBtn = document.getElementById('cancelCreateGroupBtn');
+    const groupCreateMessage = document.getElementById('groupCreateMessage');
+    const currentGroupList = document.getElementById('currentGroupList'); 
+
                           

@@ -16,3 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleAuthLink = document.getElementById('toggleAuthLink');
     const toggleAuthText = document.getElementById('toggleAuthText');
     const authMessage = document.getElementById('authMessage');
+       const editProfileBtn = document.getElementById('editProfileBtn');
+    const profileEditFormContainer = document.getElementById('profileEditFormContainer');
+    const profileEditForm = document.getElementById('profileEditForm');
+    const cancelEditProfileBtn = document.getElementById('cancelEditProfileBtn');
+    const profileEditMessage = document.getElementById('profileEditMessage');
+                          

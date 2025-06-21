@@ -119,7 +119,11 @@ document.addEventListener('DOMContentLoaded', function() {
             showSection(sectionId);
         });
     });
-
+ menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        document.querySelector('.app-container').classList.toggle('sidebar-open');
+    });
+    
     
 
 

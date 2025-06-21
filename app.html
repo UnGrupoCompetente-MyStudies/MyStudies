@@ -53,3 +53,42 @@
                     </div>
                 </div>
             </section>
+
+            <section class="page-section" id="profile">
+                <div class="container">
+                    <h2>Mi Perfil</h2>
+                    <p>Aquí puedes ver y actualizar tu información. ¡Ayúdanos a conectarte con la gente correcta!</p>
+                    <div class="profile-details">
+                        <p><strong>Nombre:</strong> <span id="profileName"></span></p>
+                        <p><strong>Correo Universitario:</strong> <span id="profileEmail"></span></p>
+                        <p><strong>Universidad:</strong> <span id="profileUniversity"></span></p>
+                        <p><strong>Carrera:</strong> <span id="profileCareer"></span></p>
+                        <p><strong>Intereses:</strong> <span id="profileInterests"></span></p>
+                    </div>
+                    <button class="btn-primary" id="editProfileBtn">Editar Perfil</button>
+                    
+                    <div id="profileEditFormContainer" class="form-modal-container hidden">
+                        <div class="form-modal-content">
+                            <h3>Editar Información de Perfil</h3>
+                            <form id="profileEditForm">
+                                <label for="editName">Nombre Completo</label>
+                                <input type="text" id="editName" name="editName" required>
+
+                                <label for="editUniversity">Universidad</label>
+                                <input type="text" id="editUniversity" name="editUniversity" required>
+
+                                <label for="editCareer">Carrera</label>
+                                <input type="text" id="editCareer" name="editCareer" required>
+
+                                <label for="editInterests">Tus Intereses Principales (separados por comas)</label>
+                                <textarea id="editInterests" name="editInterests" rows="3"></textarea>
+
+                                <button type="submit" class="btn-primary">Guardar Cambios</button>
+                                <button type="button" class="btn-secondary" id="cancelEditProfileBtn">Cancelar</button>
+                            </form>
+                            <div id="profileEditMessage" class="form-message success hidden"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                    

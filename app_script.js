@@ -82,6 +82,26 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('editCareer').value = currentUser.career;
         document.getElementById('editInterests').value = currentUser.interests;
     }
+        function renderGroupList() {
+        if (currentGroupList) { 
+            currentGroupList.innerHTML = ''; 
+            createdGroups.forEach(group => {
+                const groupCard = document.createElement('div');
+                groupCard.classList.add('group-card');
+                groupCard.innerHTML = `
+                    <h3>${group.name}</h3>
+                    <p><strong>Tipo:</strong> ${group.type.charAt(0).toUpperCase() + group.type.slice(1)}</p>
+                    <p><strong>Descripción:</strong> ${group.description}</p>
+                    <p><strong>Miembros:</strong> ${group.members}</p>
+                    <button class="btn-secondary">Ver Detalles (Simulado)</button>
+                `;
+                currentGroupList.appendChild(groupCard);
+            });
+        } else {
+            console.error("Elemento 'currentGroupList' no encontrado. Asegúrate de que el ID es correcto en app.html.");
+        }
+    }
+    
 
 
                           

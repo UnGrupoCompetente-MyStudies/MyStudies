@@ -124,7 +124,30 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.app-container').classList.toggle('sidebar-open');
     });
     
-    
+       function showAuthScreen(mode) {
+        isRegisterMode = (mode === 'register');
+        if (isRegisterMode) {
+            authTitle.textContent = 'Regístrate';
+            passwordField.classList.remove('hidden');
+            nameUniversityCareerFields.classList.remove('hidden');
+            authSubmitBtn.textContent = 'Crear Cuenta';
+            toggleAuthText.textContent = '¿Ya tienes cuenta?';
+            toggleAuthLink.textContent = 'Iniciar Sesión';
+        } else {
+            authTitle.textContent = 'Iniciar Sesión';
+            passwordField.classList.remove('hidden');
+            nameUniversityCareerFields.classList.add('hidden');
+            authSubmitBtn.textContent = 'Ingresar';
+            toggleAuthText.textContent = '¿No tienes cuenta?';
+            toggleAuthLink.textContent = 'Regístrate';
+        }
+        authMessage.style.display = 'none';
+        authMessage.classList.remove('success', 'error');
+        authForm.reset();
+        authScreen.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
 
 
                           

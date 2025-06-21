@@ -69,5 +69,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    function updateProfileDisplay() {
+        document.getElementById('profileName').textContent = currentUser.name;
+        document.getElementById('profileEmail').textContent = currentUser.email;
+        document.getElementById('profileUniversity').textContent = currentUser.university;
+        document.getElementById('profileCareer').textContent = currentUser.career;
+        document.getElementById('profileInterests').textContent = currentUser.interests;
+
+        document.getElementById('editName').value = currentUser.name;
+        document.getElementById('editUniversity').value = currentUser.university;
+        document.getElementById('editCareer').value = currentUser.career;
+        document.getElementById('editInterests').value = currentUser.interests;
+    }
+
 
                           

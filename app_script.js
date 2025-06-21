@@ -164,5 +164,21 @@ document.addEventListener('DOMContentLoaded', function() {
         showAuthScreen(isRegisterMode ? 'login' : 'register');
     });
 
+     authForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        authMessage.style.display = 'none';
+        authMessage.classList.remove('success', 'error');
+
+        const email = document.getElementById('authEmail').value;
+        const password = document.getElementById('authPassword').value;
+
+        const universityEmailPattern = /^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$/;
+        if (!universityEmailPattern.test(email)) {
+            authMessage.textContent = 'Por favor, ingresa un correo electrónico válido (ej. tu@universidad.edu.pe).';
+            authMessage.classList.add('error');
+            authMessage.style.display = 'block';
+            return; 
+        }
+
 
                           

@@ -43,5 +43,31 @@ document.addEventListener('DOMContentLoaded', function() {
         { name: 'Grupo de Estudio: Cálculo I', members: 8, description: 'Apoyo para ejercicios y dudas de Cálculo I.', type: 'estudio' },
         { name: 'Club de Lectura Universitario', members: 15, description: 'Reuniones semanales para discutir libros.', type: 'social' }
     ];
+      function showSection(id) {
+        pageSections.forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(id).classList.add('active');
+        pageTitle.textContent = document.getElementById(id).querySelector('h2') ? document.getElementById(id).querySelector('h2').textContent : id.charAt(0).toUpperCase() + id.slice(1);
+
+        if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active');
+            document.querySelector('.app-container').classList.remove('sidebar-open');
+        }
+
+        if (id === 'profile') {
+            updateProfileDisplay();
+        }
+        if (id === 'groups') {
+            renderGroupList(); 
+        }
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.dataset.section === id) {
+                link.classList.add('active');
+            }
+        });
+    }
 
                           

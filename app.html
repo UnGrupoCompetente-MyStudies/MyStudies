@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Studies - Aplicación</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles/app_styles.css">
+    <link rel="stylesheet" href="assets/styles/app_styles.css"> </head>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-</head>
+    
 <body>
     <div class="app-container">
         <aside class="sidebar" id="sidebar">
-            <div class="logo"><img height="100" width="150" src="assets/images/logo.png" alt="Logo de My Studies" /></div>
+            <div class="logo"><img height="100" width="150" src="assets/images/logo.png" alt="" /></div>
             <nav class="main-nav">
                 <ul>
                     <li><a href="#" data-section="dashboard" class="active">Dashboard</a></li>
@@ -38,6 +38,7 @@
                 <div class="container">
                     <h2>Bienvenido a My Studies</h2>
                     <p>¡Tu compañero ideal para una adaptación universitaria exitosa! Aquí podrás conectar con otros estudiantes, organizar actividades y acceder a recursos valiosos.</p>
+
                     <div class="dashboard-cards">
                         <div class="d-card">
                             <h3>Conecta y Crece</h3>
@@ -65,7 +66,6 @@
                     <div class="profile-details">
                         <p><strong>Nombre:</strong> <span id="profileName"></span></p>
                         <p><strong>Correo Universitario:</strong> <span id="profileEmail"></span></p>
-                        <p><strong>Rol:</strong> <span id="profileRole"></span></p>
                         <p><strong>Universidad:</strong> <span id="profileUniversity"></span></p>
                         <p><strong>Carrera:</strong> <span id="profileCareer"></span></p>
                         <p><strong>Intereses:</strong> <span id="profileInterests"></span></p>
@@ -78,12 +78,16 @@
                             <form id="profileEditForm">
                                 <label for="editName">Nombre Completo</label>
                                 <input type="text" id="editName" name="editName" required>
+
                                 <label for="editUniversity">Universidad</label>
                                 <input type="text" id="editUniversity" name="editUniversity" required>
+
                                 <label for="editCareer">Carrera</label>
                                 <input type="text" id="editCareer" name="editCareer" required>
+
                                 <label for="editInterests">Tus Intereses Principales (separados por comas)</label>
                                 <textarea id="editInterests" name="editInterests" rows="3"></textarea>
+
                                 <button type="submit" class="btn-primary">Guardar Cambios</button>
                                 <button type="button" class="btn-secondary" id="cancelEditProfileBtn">Cancelar</button>
                             </form>
@@ -116,7 +120,6 @@
                             <button class="btn-secondary message-student-btn" data-student-name="Pedro García">Enviar Mensaje</button>
                             <button class="btn-secondary">Enviar Conexión (Simulado)</button>
                         </div>
-                        <p class="small-text">*(La búsqueda y las conexiones son simuladas en este prototipo.)*</p>
                     </div>
                 </div>
             </section>
@@ -126,8 +129,20 @@
                     <h2>Mis Grupos de Estudio y Actividades</h2>
                     <p>Colabora y participa en comunidades. ¡Únete o crea tu propio grupo!</p>
                     <button class="btn-primary" id="createGroupBtn">Crear Nuevo Grupo</button>
-                    <div class="group-list" id="groupList">
+                    <div class="group-list">
+                        <div class="group-card">
+                            <h3>Grupo de Estudio: Cálculo I</h3>
+                            <p><strong>Miembros:</strong> 8</p>
+                            <p><strong>Descripción:</strong> Apoyo para ejercicios y dudas de Cálculo I.</p>
+                            <button class="btn-secondary">Ver Detalles</button>
                         </div>
+                        <div class="group-card">
+                            <h3>Club de Lectura Universitario</h3>
+                            <p><strong>Miembros:</strong> 15</p>
+                            <p><strong>Descripción:</strong> Reuniones semanales para discutir libros.</p>
+                            <button class="btn-secondary">Unirse</button>
+                        </div>
+                    </div>
                     
                     <div id="groupCreateFormContainer" class="form-modal-container hidden">
                         <div class="form-modal-content">
@@ -135,6 +150,7 @@
                             <form id="groupCreateForm">
                                 <label for="groupName">Nombre del Grupo</label>
                                 <input type="text" id="groupName" name="groupName" required>
+
                                 <label for="groupType">Tipo de Grupo</label>
                                 <select id="groupType" name="groupType">
                                     <option value="estudio">Estudio</option>
@@ -143,8 +159,10 @@
                                     <option value="cultural">Cultural</option>
                                     <option value="otros">Otros</option>
                                 </select>
+
                                 <label for="groupDescription">Descripción del Grupo</label>
                                 <textarea id="groupDescription" name="groupDescription" rows="4"></textarea>
+
                                 <button type="submit" class="btn-primary">Crear Grupo</button>
                                 <button type="button" class="btn-secondary" id="cancelCreateGroupBtn">Cancelar</button>
                             </form>
@@ -158,14 +176,23 @@
                 <div class="container">
                     <h2>Recursos y Guías</h2>
                     <p>Encuentra información útil para tu día a día universitario. Guías, consejos y más.</p>
-                    <button class="btn-primary hidden" id="createResourceBtn">Crear Nuevo Recurso</button>
-                    <div class="resource-list" id="resourceList">
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <h3>Guía de Trámites Universitarios</h3>
+                            <p>Todo lo que necesitas saber sobre matrículas, becas y documentos.</p>
+                            <a href="#" class="btn-secondary">Leer Guía</a>
                         </div>
+                        <div class="resource-item">
+                            <h3>Consejos para el Primer Ciclo</h3>
+                            <p>Supera los desafíos iniciales con estas recomendaciones clave.</p>
+                            <a href="#" class="btn-secondary">Leer Consejos</a>
+                        </div>
+                    </div>
                 </div>
             </section>
-            
-            <section class="page-section" id="settings">
-                 <div class="container">
+
+             <section class="page-section" id="settings">
+                <div class="container">
                     <h2>Configuración de la Aplicación</h2>
                     <p>Personaliza tu experiencia en My Studies.</p>
                     <div class="settings-options">
@@ -186,71 +213,116 @@
                                 <option>Privado</option>
                             </select>
                         </div>
-                        <p class="small-text">*(La configuración es simulada y no guarda cambios.)*</p>
                     </div>
                 </div>
             </section>
 
-            <section class="page-section" id="auth-screen" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+             <section class="page-section" id="auth-screen" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
                 <div class="auth-form-wrapper">
                     <h2 id="authTitle">Iniciar Sesión</h2>
                     <form id="authForm">
                         <label for="authEmail">Correo Universitario</label>
                         <input type="email" id="authEmail" name="authEmail" placeholder="tu@universidad.edu.pe" required>
+
                         <div id="passwordField" class="hidden">
                             <label for="authPassword">Contraseña</label>
                             <input type="password" id="authPassword" name="authPassword" placeholder="********" required>
                         </div>
                         <a href="#" id="forgotPasswordLink" class="form-link">¿Olvidaste tu contraseña?</a>
+
                         <div id="nameUniversityCareerFields" class="hidden">
                             <label for="authName">Nombre Completo</label>
                             <input type="text" id="authName" name="authName" placeholder="Ej. Juan Pérez">
                             
-                            <div class="form-group-radio">
-                                <label>Soy:</label>
-                                <div class="radio-options">
-                                    <div class="radio-option">
-                                        <input type="radio" id="roleStudent" name="authRole" value="alumno" checked>
-                                        <label for="roleStudent">Alumno</label>
-                                    </div>
-                                    <div class="radio-option">
-                                        <input type="radio" id="roleTeacher" name="authRole" value="docente">
-                                        <label for="roleTeacher">Docente</label>
-                                    </div>
-                                </div>
-                            </div>
-                            
                             <label for="authUniversity">Universidad</label>
                             <input type="text" id="authUniversity" name="authUniversity" placeholder="Ej. Universidad Mayor de San Marcos">
+
                             <label for="authCareer">Carrera</label>
                             <input type="text" id="authCareer" name="authCareer" placeholder="Ej. Ingeniería de Software">
+
                             <label for="authInterests">Tus Intereses (separados por comas)</label>
                             <textarea id="authInterests" name="authInterests" rows="3" placeholder="Ej. programación, deportes, lectura"></textarea>
                         </div>
+
                         <button type="submit" id="authSubmitBtn">Continuar</button>
                         <p class="toggle-auth">
                             <span id="toggleAuthText">¿No tienes cuenta?</span> <a href="#" id="toggleAuthLink">Regístrate</a>
                         </p>
-                        <p class="small-text">*(Este es un formulario de prueba. Los datos no se guardan.)*</p>
                     </form>
                     <div id="authMessage" class="auth-message success" style="display: none;"></div>
                 </div>
             </section>
-            
+
+            <section id="events" class="page-section hidden">
+                <div class="page-header">
+                    <h2>Eventos</h2>
+                    <button id="createEventBtn" class="btn-primary">Crear Evento</button>
+                </div>
+
+                <div id="eventFiltersWrapper" class="dashboard-card-section filters-container hidden">
+                    <h3>Filtrar Eventos</h3>
+                    <div class="filter-group">
+                        <label for="eventDateFilter">Fecha:</label>
+                        <input type="date" id="eventDateFilter">
+                    </div>
+                    <div class="filter-group">
+                        <label for="eventCategoryFilter">Categoría:</label>
+                        <select id="eventCategoryFilter">
+                            <option value="">Todas</option>
+                            <option value="Académico">Académico</option>
+                            <option value="Social">Social</option>
+                            <option value="Deportivo">Deportivo</option>
+                            <option value="Cultural">Cultural</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="eventLocationFilter">Lugar:</label>
+                        <input type="text" id="eventLocationFilter" placeholder="Ej. Auditorio">
+                    </div>
+                    <div class="filter-actions">
+                        <button id="applyEventFiltersBtn" class="btn-primary">Aplicar Filtros</button>
+                        <button id="clearEventFiltersBtn" class="btn-secondary">Limpiar Filtros</button>
+                    </div>
+                </div>
+                <div id="eventList" class="event-list dashboard-card-section">
+                    </div>
+            </section>
+
             <section class="page-section" id="events">
-                 <div class="container">
+                <div class="container">
                     <h2>Eventos Universitarios</h2>
                     <p>Descubre y participa en los eventos más importantes de tu universidad.</p>
-                    <button class="btn-primary hidden" id="createEventBtn">Crear Nuevo Evento</button>
+
+                    <button class="btn-primary" id="createEventBtn">Crear Nuevo Evento</button>
+
                     <div class="event-list" id="eventList">
-                         </div>
+                        <div class="event-card">
+                            <h3>Charla: Oportunidades Laborales en IA</h3>
+                            <p><strong>Fecha:</strong> 25 de julio de 2025</p>
+                            <p><strong>Hora:</strong> 10:00 AM</p>
+                            <p><strong>Lugar:</strong> Auditorio Principal</p>
+                            <p><strong>Organizador:</strong> Facultad de Ingeniería</p>
+                            <p>Una charla inspiradora sobre el futuro de la Inteligencia Artificial.</p>
+                            <button class="btn-secondary join-event-btn">Inscribirme</button>
+                        </div>
+                        <div class="event-card">
+                            <h3>Feria de Voluntariado Universitario</h3>
+                            <p><strong>Fecha:</strong> 15 de agosto de 2025</p>
+                            <p><strong>Hora:</strong> 09:00 AM - 05:00 PM</p>
+                            <p><strong>Lugar:</strong> Plaza Central</p>
+                            <p><strong>Organizador:</strong> Bienestar Universitario</p>
+                            <p>Conoce organizaciones y cómo puedes contribuir a la comunidad.</p>
+                            <button class="btn-secondary join-event-btn">Inscribirme</button>
+                        </div>
+                    </div>
                 </div>
             </section>
-            
+
             <section class="page-section" id="messages">
-                 <div class="container">
+                <div class="container">
                     <h2>Mensajes Directos</h2>
                     <p>Comunícate con tus conexiones de forma privada.</p>
+
                     <div class="message-list" id="messageUserList">
                         <h3>Tus Conversaciones</h3>
                         <div class="message-preview-card" data-chat-with="Profesor XYZ">
@@ -263,6 +335,7 @@
                         </div>
                         <p class="small-text">*(Las conversaciones son simuladas)*</p>
                     </div>
+
                     <div class="active-chat-container hidden" id="activeChatContainer">
                         <div class="chat-header">
                             <button class="btn-icon" id="backToMessageListBtn">&#8592;</button> <h3 id="chatWithName"></h3>
@@ -281,77 +354,59 @@
             </section>
         </main>
 
-        <div class="overlay hidden" id="eventCreateFormContainer">
-            <div class="modal-content">
-                <h3>Crear Nuevo Evento</h3>
-                <form id="eventCreateForm">
-                    <div class="form-group">
-                        <label for="eventName">Nombre del Evento</label>
-                        <input type="text" id="eventName" name="eventName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventDate">Fecha</label>
-                        <input type="date" id="eventDate" name="eventDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventTime">Hora</label>
-                        <input type="time" id="eventTime" name="eventTime" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventLocation">Lugar</label>
-                        <input type="text" id="eventLocation" name="eventLocation" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventOrganizer">Organizador</label>
-                        <input type="text" id="eventOrganizer" name="eventOrganizer">
-                    </div>
-                    <div class="form-group">
-                        <label for="eventDescription">Descripción</label>
-                        <textarea id="eventDescription" name="eventDescription" rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">Crear Evento</button>
-                    <button type="button" class="btn-secondary" id="cancelCreateEventBtn">Cancelar</button>
-                </form>
-                <p class="form-message hidden" id="eventCreateMessage"></p>
-            </div>
+    <div class="overlay hidden" id="eventCreateFormContainer">
+        <div class="modal-content">
+            <h3>Crear Nuevo Evento</h3>
+            <form id="eventCreateForm">
+                <div class="form-group">
+                    <label for="eventName">Nombre del Evento</label>
+                    <input type="text" id="eventName" name="eventName" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventDate">Fecha</label>
+                    <input type="date" id="eventDate" name="eventDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventTime">Hora</label>
+                    <input type="time" id="eventTime" name="eventTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventLocation">Lugar</label>
+                    <input type="text" id="eventLocation" name="eventLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventOrganizer">Organizador</label>
+                    <input type="text" id="eventOrganizer" name="eventOrganizer">
+                </div>
+                <div class="form-group">
+                    <label for="eventDescription">Descripción</label>
+                    <textarea id="eventDescription" name="eventDescription" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Crear Evento</button>
+                <button type="button" class="btn-secondary" id="cancelCreateEventBtn">Cancelar</button>
+            </form>
+            <p class="form-message hidden" id="eventCreateMessage"></p>
         </div>
-
-        <div class="overlay hidden" id="resourceCreateFormContainer">
-            <div class="modal-content">
-                <h3>Crear Nuevo Recurso</h3>
-                <form id="resourceCreateForm">
-                    <div class="form-group">
-                        <label for="resourceName">Nombre del Recurso/Guía</label>
-                        <input type="text" id="resourceName" name="resourceName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="resourceDescription">Descripción</label>
-                        <textarea id="resourceDescription" name="resourceDescription" rows="4" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">Crear Recurso</button>
-                    <button type="button" class="btn-secondary" id="cancelCreateResourceBtn">Cancelar</button>
-                </form>
-                <p class="form-message hidden" id="resourceCreateMessage"></p>
-            </div>
-        </div>
-        
-        <div class="overlay hidden" id="passwordRecoveryFormContainer">
-            <div class="modal-content">
-                <h3>Recuperar Contraseña</h3>
-                <form id="passwordRecoveryForm">
-                    <p>Ingresa tu correo electrónico universitario para enviarte instrucciones de recuperación.</p>
-                    <div class="form-group">
-                        <label for="recoveryEmail">Correo Electrónico:</label>
-                        <input type="email" id="recoveryEmail" name="recoveryEmail" required placeholder="tu@universidad.edu.pe">
-                    </div>
-                    <button type="submit" class="btn-primary">Enviar Instrucciones</button>
-                    <button type="button" class="btn-secondary" id="cancelRecoveryBtn">Cancelar</button>
-                </form>
-                <p class="form-message hidden" id="recoveryMessage"></p>
-            </div>
-        </div>
-
     </div>
+
+    <div class="overlay hidden" id="passwordRecoveryFormContainer">
+        <div class="modal-content">
+            <h3>Recuperar Contraseña</h3>
+            <form id="passwordRecoveryForm">
+                <p>Ingresa tu correo electrónico universitario para enviarte instrucciones de recuperación.</p>
+                <div class="form-group">
+                    <label for="recoveryEmail">Correo Electrónico:</label>
+                    <input type="email" id="recoveryEmail" name="recoveryEmail" required placeholder="tu@universidad.edu.pe">
+                </div>
+                <button type="submit" class="btn-primary">Enviar Instrucciones</button>
+                <button type="button" class="btn-secondary" id="cancelRecoveryBtn">Cancelar</button>
+            </form>
+            <p class="form-message hidden" id="recoveryMessage"></p>
+        </div>
+    </div>
+        
+    </div>
+
     <script src="assets/scripts/app_script.js"></script>
 </body>
 </html>

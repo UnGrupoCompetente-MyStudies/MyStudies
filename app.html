@@ -6,6 +6,8 @@
     <title>My Studies - Aplicación</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles/app_styles.css"> </head>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
 <body>
     <div class="app-container">
         <aside class="sidebar" id="sidebar">
@@ -118,7 +120,6 @@
                             <button class="btn-secondary message-student-btn" data-student-name="Pedro García">Enviar Mensaje</button>
                             <button class="btn-secondary">Enviar Conexión (Simulado)</button>
                         </div>
-                        <p class="small-text">*(La búsqueda y las conexiones son simuladas en este prototipo.)*</p>
                     </div>
                 </div>
             </section>
@@ -186,7 +187,6 @@
                             <p>Supera los desafíos iniciales con estas recomendaciones clave.</p>
                             <a href="#" class="btn-secondary">Leer Consejos</a>
                         </div>
-                        <p class="small-text">*(Los recursos son simulados en este prototipo.)*</p>
                     </div>
                 </div>
             </section>
@@ -213,7 +213,6 @@
                                 <option>Privado</option>
                             </select>
                         </div>
-                        <p class="small-text">*(La configuración es simulada y no guarda cambios.)*</p>
                     </div>
                 </div>
             </section>
@@ -249,10 +248,44 @@
                         <p class="toggle-auth">
                             <span id="toggleAuthText">¿No tienes cuenta?</span> <a href="#" id="toggleAuthLink">Regístrate</a>
                         </p>
-                        <p class="small-text">*(Este es un formulario de prueba. Los datos no se guardan.)*</p>
                     </form>
                     <div id="authMessage" class="auth-message success" style="display: none;"></div>
                 </div>
+            </section>
+
+            <section id="events" class="page-section hidden">
+                <div class="page-header">
+                    <h2>Eventos</h2>
+                    <button id="createEventBtn" class="btn-primary">Crear Evento</button>
+                </div>
+
+                <div id="eventFiltersWrapper" class="dashboard-card-section filters-container hidden">
+                    <h3>Filtrar Eventos</h3>
+                    <div class="filter-group">
+                        <label for="eventDateFilter">Fecha:</label>
+                        <input type="date" id="eventDateFilter">
+                    </div>
+                    <div class="filter-group">
+                        <label for="eventCategoryFilter">Categoría:</label>
+                        <select id="eventCategoryFilter">
+                            <option value="">Todas</option>
+                            <option value="Académico">Académico</option>
+                            <option value="Social">Social</option>
+                            <option value="Deportivo">Deportivo</option>
+                            <option value="Cultural">Cultural</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="eventLocationFilter">Lugar:</label>
+                        <input type="text" id="eventLocationFilter" placeholder="Ej. Auditorio">
+                    </div>
+                    <div class="filter-actions">
+                        <button id="applyEventFiltersBtn" class="btn-primary">Aplicar Filtros</button>
+                        <button id="clearEventFiltersBtn" class="btn-secondary">Limpiar Filtros</button>
+                    </div>
+                </div>
+                <div id="eventList" class="event-list dashboard-card-section">
+                    </div>
             </section>
 
             <section class="page-section" id="events">
@@ -281,7 +314,6 @@
                             <p>Conoce organizaciones y cómo puedes contribuir a la comunidad.</p>
                             <button class="btn-secondary join-event-btn">Inscribirme</button>
                         </div>
-                        <p class="small-text">*(Los eventos son simulados y la inscripción no es real.)*</p>
                     </div>
                 </div>
             </section>

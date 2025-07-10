@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const authScreen = document.getElementById('auth-screen');
     const authForm = document.getElementById('authForm');
     const authTitle = document.getElementById('authTitle');
+    const authEmailField = document.getElementById('authEmail');
+    const authPasswordField = document.getElementById('authPassword');
     const passwordField = document.getElementById('passwordField');
     const nameUniversityCareerFields = document.getElementById('nameUniversityCareerFields');
     const authSubmitBtn = document.getElementById('authSubmitBtn');
@@ -33,8 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const groupCreateForm = document.getElementById('groupCreateForm');
     const cancelCreateGroupBtn = document.getElementById('cancelCreateGroupBtn');
     const groupCreateMessage = document.getElementById('groupCreateMessage');
-    const currentGroupList = document.getElementById('currentGroupList');
-    
+    const currentGroupList = document.querySelector('#groups .group-list');
 
     const messageUserList = document.getElementById('messageUserList');
     const activeChatContainer = document.getElementById('activeChatContainer');
@@ -43,32 +44,66 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatInput = document.getElementById('chatInput');
     const sendMessageBtn = document.getElementById('sendMessageBtn');
     const backToMessageListBtn = document.getElementById('backToMessageListBtn');
-    const messageStudentBtns = document.querySelectorAll('.message-student-btn'); 
+    const messageStudentBtns = document.querySelectorAll('.message-student-btn');
 
     const createEventBtn = document.getElementById('createEventBtn');
     const eventCreateFormContainer = document.getElementById('eventCreateFormContainer');
     const eventCreateForm = document.getElementById('eventCreateForm');
     const cancelCreateEventBtn = document.getElementById('cancelCreateEventBtn');
     const eventCreateMessage = document.getElementById('eventCreateMessage');
-    const eventList = document.getElementById('eventList'); 
-    const joinEventBtns = document.querySelectorAll('.join-event-btn'); 
+    const eventList = document.getElementById('eventList');
+
+    // **New constant for the event filters wrapper**
+    const eventFiltersWrapper = document.getElementById('eventFiltersWrapper');
+    const eventDateFilter = document.getElementById('eventDateFilter');
+    const eventCategoryFilter = document.getElementById('eventCategoryFilter');
+    const eventLocationFilter = document.getElementById('eventLocationFilter');
+    const applyEventFiltersBtn = document.getElementById('applyEventFiltersBtn');
+    const clearEventFiltersBtn = document.getElementById('clearEventFiltersBtn');
+
+    const appModals = [
+        passwordRecoveryFormContainer,
+        profileEditFormContainer,
+        groupCreateFormContainer,
+        eventCreateFormContainer
+    ];
 
     let events = [
         {
             name: "Charla: Oportunidades Laborales en IA",
-            date: "25 de julio de 2025",
+            date: "2025-07-25",
             time: "10:00 AM",
             location: "Auditorio Principal",
             organizer: "Facultad de Ingeniería",
-            description: "Una charla inspiradora sobre el futuro de la Inteligencia Artificial."
+            description: "Una charla inspiradora sobre el futuro de la Inteligencia Artificial.",
+            category: "Académico"
         },
         {
             name: "Feria de Voluntariado Universitario",
-            date: "15 de agosto de 2025",
+            date: "2025-08-15",
             time: "09:00 AM - 05:00 PM",
             location: "Plaza Central",
             organizer: "Bienestar Universitario",
-            description: "Conoce organizaciones y cómo puedes contribuir a la comunidad."
+            description: "Conoce organizaciones y cómo puedes contribuir a la comunidad.",
+            category: "Social"
+        },
+        {
+            name: "Torneo de eSports",
+            date: "2025-08-20",
+            time: "04:00 PM",
+            location: "Sala de Cómputo B",
+            organizer: "Club de Videojuegos",
+            description: "Torneo de League of Legends y Valorant.",
+            category: "Deportivo"
+        },
+        {
+            name: "Concierto de la Orquesta Universitaria",
+            date: "2025-09-10",
+            time: "08:00 PM",
+            location: "Teatro Universitario",
+            organizer: "Cultura U",
+            description: "Noche de música clásica y moderna.",
+            category: "Cultural"
         }
     ];
 
@@ -82,17 +117,16 @@ document.addEventListener('DOMContentLoaded', function() {
             { type: "sent", text: "Ok, ahí estaré." },
             { type: "received", text: "¿Traes los apuntes de física?" }
         ],
-        "Ana López": [], 
-        "Pedro García": [] 
+        "Ana López": [],
+        "Pedro García": []
     };
 
     let currentChatRecipient = '';
-
     let isRegisterMode = false;
 
     let currentUser = {
         name: 'Estudiante Prueba',
-        email: 'prueba@universidad.edu.pe',
+        email: 'yo@universidad.edu.pe',
         university: 'Universidad Genérica',
         career: 'Mi Carrera Ideal',
         interests: 'Estudiar, Aprender, Conectar'
@@ -103,12 +137,46 @@ document.addEventListener('DOMContentLoaded', function() {
         { name: 'Club de Lectura Universitario', members: 15, description: 'Reuniones semanales para discutir libros.', type: 'social' }
     ];
 
+    function showModal(modalElement) {
+        appModals.forEach(modal => {
+            if (modal && modal !== modalElement && modal.classList.contains('active')) {
+                hideModal(modal);
+            }
+        });
+        if (modalElement) {
+            modalElement.classList.remove('hidden');
+            setTimeout(() => {
+                modalElement.classList.add('active');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function hideModal(modalElement) {
+        if (modalElement) {
+            modalElement.classList.remove('active');
+            setTimeout(() => {
+                modalElement.classList.add('hidden');
+                const anyAppModalActive = appModals.some(modal => modal && modal.classList.contains('active'));
+                if (!anyAppModalActive && authScreen.classList.contains('hidden')) {
+                    document.body.style.overflow = '';
+                }
+            }, 300);
+        }
+    }
+
     function showSection(id) {
         pageSections.forEach(section => {
             section.classList.remove('active');
+            section.classList.add('hidden');
         });
-        document.getElementById(id).classList.add('active');
-        pageTitle.textContent = document.getElementById(id).querySelector('h2') ? document.getElementById(id).querySelector('h2').textContent : id.charAt(0).toUpperCase() + id.slice(1);
+
+        const targetSection = document.getElementById(id);
+        if (targetSection) {
+            targetSection.classList.remove('hidden');
+            targetSection.classList.add('active');
+            pageTitle.textContent = targetSection.querySelector('h2') ? targetSection.querySelector('h2').textContent : id.charAt(0).toUpperCase() + id.slice(1);
+        }
 
         if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
             sidebar.classList.remove('active');
@@ -119,17 +187,28 @@ document.addEventListener('DOMContentLoaded', function() {
             updateProfileDisplay();
         }
         if (id === 'groups') {
-            renderGroupList(); 
-        }
-        
-        if (id === 'messages') {
-            messageUserList.classList.remove('hidden'); 
-            activeChatContainer.classList.add('hidden'); 
-            renderMessageList(); 
+            renderGroupList();
         }
 
+        if (id === 'messages') {
+            messageUserList.classList.remove('hidden');
+            activeChatContainer.classList.add('hidden');
+            renderMessageList();
+        }
+
+        // **Handle visibility of event filters and list based on the active section**
         if (id === 'events') {
-            renderEventList(); 
+            if (eventFiltersWrapper) {
+                eventFiltersWrapper.classList.remove('hidden'); // Show filters
+            }
+            renderEventList(); // Render events
+        } else {
+            if (eventFiltersWrapper) {
+                eventFiltersWrapper.classList.add('hidden'); // Hide filters
+            }
+            if (eventList) {
+                eventList.innerHTML = ''; // Clear event list when not on events page
+            }
         }
 
         navLinks.forEach(link => {
@@ -154,8 +233,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderGroupList() {
-        if (currentGroupList) { 
-            currentGroupList.innerHTML = ''; 
+        if (currentGroupList) {
+            currentGroupList.innerHTML = '';
             createdGroups.forEach(group => {
                 const groupCard = document.createElement('div');
                 groupCard.classList.add('group-card');
@@ -174,8 +253,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderMessageList() {
-        messageUserList.innerHTML = '<h3>Tus Conversaciones</h3>'; 
-        
+        messageUserList.innerHTML = '<h3>Tus Conversaciones</h3>';
+
         for (const recipient in conversations) {
             const lastMessage = conversations[recipient].length > 0 ? conversations[recipient][conversations[recipient].length - 1].text : "No hay mensajes";
             const messageCard = document.createElement('div');
@@ -189,37 +268,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
             messageCard.addEventListener('click', () => openChat(recipient));
         }
-
-        const smallText = document.createElement('p');
-        smallText.classList.add('small-text');
-        smallText.textContent = '*(Las conversaciones son simuladas en este prototipo.)*';
-        messageUserList.appendChild(smallText);
     }
 
-    function renderEventList() {
-        eventList.innerHTML = ''; 
+    function renderEventList(filteredEvents = events) {
+        if (!eventList) return;
+        eventList.innerHTML = '';
 
-        events.forEach(event => {
-            const eventCard = document.createElement('div');
-            eventCard.classList.add('event-card');
-            eventCard.innerHTML = `
-                <h3>${event.name}</h3>
-                <p><strong>Fecha:</strong> ${event.date}</p>
-                <p><strong>Hora:</strong> ${event.time}</p>
-                <p><strong>Lugar:</strong> ${event.location}</p>
-                <p><strong>Organizador:</strong> ${event.organizer}</p>
-                <p>${event.description}</p>
-                <button class="btn-secondary join-event-btn">Inscribirme</button>
-            `;
-            eventList.appendChild(eventCard);
-        });
+        if (filteredEvents.length === 0) {
+            eventList.innerHTML = '<p>No se encontraron eventos con los filtros aplicados.</p>';
+        } else {
+            filteredEvents.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.classList.add('event-card');
+                eventCard.innerHTML = `
+                    <h3>${event.name}</h3>
+                    <p><strong>Fecha:</strong> ${event.date}</p>
+                    <p><strong>Hora:</strong> ${event.time}</p>
+                    <p><strong>Lugar:</strong> ${event.location}</p>
+                    <p><strong>Organizador:</strong> ${event.organizer}</p>
+                    <p><strong>Categoría:</strong> ${event.category}</p>
+                    <p>${event.description}</p>
+                    <button class="btn-secondary join-event-btn">Inscribirme</button>
+                `;
+                eventList.appendChild(eventCard);
+            });
+        }
 
-        const smallText = document.createElement('p');
-        smallText.classList.add('small-text');
-        smallText.textContent = '*(Los eventos son simulados y la inscripción no es real.)*';
-        eventList.appendChild(smallText);
-
-        eventList.querySelectorAll('.join-event-btn').forEach(button => {
+        document.querySelectorAll('.join-event-btn').forEach(button => {
             button.addEventListener('click', function() {
                 alert('¡Inscripción simulada! Recibirás un correo de confirmación (imaginario).');
                 this.textContent = 'Inscrito';
@@ -229,20 +304,44 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function applyEventFilters() {
+        const dateFilter = eventDateFilter ? eventDateFilter.value : '';
+        const categoryFilter = eventCategoryFilter ? eventCategoryFilter.value : '';
+        const locationFilter = eventLocationFilter ? eventLocationFilter.value.toLowerCase() : '';
+
+        const filteredEvents = events.filter(event => {
+            const matchesDate = !dateFilter || event.date === dateFilter;
+            const matchesCategory = !categoryFilter || event.category === categoryFilter;
+            const matchesLocation = !locationFilter || event.location.toLowerCase().includes(locationFilter);
+
+            return matchesDate && matchesCategory && matchesLocation;
+        });
+
+        renderEventList(filteredEvents);
+    }
+
+    function clearEventFilters() {
+        if (eventDateFilter) eventDateFilter.value = '';
+        if (eventCategoryFilter) eventCategoryFilter.value = '';
+        if (eventLocationFilter) eventLocationFilter.value = '';
+        renderEventList();
+    }
+
     function openChat(recipientName) {
         currentChatRecipient = recipientName;
         chatWithName.textContent = recipientName;
-        messageUserList.classList.add('hidden'); 
-        activeChatContainer.classList.remove('hidden'); 
-        renderMessages(); 
-        chatMessages.scrollTop = chatMessages.scrollHeight; 
-        chatInput.focus(); 
+        messageUserList.classList.add('hidden');
+        activeChatContainer.classList.remove('hidden');
+        renderMessages();
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        chatInput.focus();
     }
 
     function renderMessages() {
-        chatMessages.innerHTML = ''; 
+        chatMessages.innerHTML = '';
 
-        if (!conversations[currentChatRecipient]) {// Inicializar si no existe
+        if (!conversations[currentChatRecipient]) {
+            conversations[currentChatRecipient] = [];
         }
 
         conversations[currentChatRecipient].forEach(msg => {
@@ -251,14 +350,14 @@ document.addEventListener('DOMContentLoaded', function() {
             messageDiv.textContent = msg.text;
             chatMessages.appendChild(messageDiv);
         });
-        chatMessages.scrollTop = chatMessages.scrollHeight; 
+        chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
     messageStudentBtns.forEach(button => {
         button.addEventListener('click', function() {
             const studentName = this.dataset.studentName;
-            showSection('messages'); // Ir a la sección de mensajes
-            openChat(studentName); // Abrir el chat con ese estudiante
+            showSection('messages');
+            openChat(studentName);
         });
     });
 
@@ -269,8 +368,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 conversations[currentChatRecipient] = [];
             }
             conversations[currentChatRecipient].push({ type: "sent", text: messageText });
-            renderMessages(); 
-            chatInput.value = ''; 
+            renderMessages();
+            chatInput.value = '';
 
             setTimeout(() => {
                 const simulatedResponses = [
@@ -282,20 +381,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 const randomResponse = simulatedResponses[Math.floor(Math.random() * simulatedResponses.length)];
                 conversations[currentChatRecipient].push({ type: "received", text: randomResponse });
                 renderMessages();
-            }, 1000 + Math.random() * 1500); 
+            }, 1000 + Math.random() * 1500);
         }
     });
 
     chatInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-            sendMessageBtn.click(); 
+            sendMessageBtn.click();
         }
     });
 
     backToMessageListBtn.addEventListener('click', function() {
-        activeChatContainer.classList.add('hidden'); 
-        messageUserList.classList.remove('hidden'); 
-        renderMessageList(); 
+        activeChatContainer.classList.add('hidden');
+        messageUserList.classList.remove('hidden');
+        renderMessageList();
     });
 
     navLinks.forEach(link => {
@@ -310,28 +409,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     forgotPasswordLink.addEventListener('click', function(e) {
         e.preventDefault();
-        passwordRecoveryFormContainer.classList.remove('hidden'); 
-        passwordRecoveryFormContainer.classList.add('active'); 
-        document.body.style.overflow = 'hidden';
+        showModal(passwordRecoveryFormContainer);
         recoveryMessage.classList.add('hidden');
         passwordRecoveryForm.reset();
     });
 
-    cancelRecoveryBtn.addEventListener("click", () => {
-        passwordRecoveryFormContainer.classList.remove("active");
-        setTimeout(() => {
-            passwordRecoveryFormContainer.classList.add("hidden");
-            document.body.style.overflow = "auto";
-        }, 300);
-
-        setTimeout(() => {
-            if (!passwordRecoveryFormContainer.classList.contains("hidden")) {
-                passwordRecoveryFormContainer.classList.add("hidden");
-                document.body.style.overflow = "auto";
-            }
-        }, 500);
+    cancelRecoveryBtn.addEventListener('click', function() {
+        hideModal(passwordRecoveryFormContainer);
     });
-
 
     passwordRecoveryForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -360,13 +445,9 @@ document.addEventListener('DOMContentLoaded', function() {
         recoveryMessage.classList.remove('hidden');
 
         setTimeout(() => {
-            passwordRecoveryFormContainer.classList.remove('active'); 
-            recoveryMessage.classList.add('hidden'); 
-            setTimeout(() => {
-                passwordRecoveryFormContainer.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 300); 
-        }, 3000); 
+            hideModal(passwordRecoveryFormContainer);
+            recoveryMessage.classList.add('hidden');
+        }, 3000);
     });
 
     document.querySelectorAll('[data-section-btn]').forEach(button => {
@@ -403,23 +484,22 @@ document.addEventListener('DOMContentLoaded', function() {
         authMessage.style.display = 'none';
         authMessage.classList.remove('success', 'error');
         authForm.reset();
-        authScreen.style.display = 'flex';
+
+        authScreen.classList.remove('hidden');
+        authScreen.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 
     function hideAuthScreen() {
-        authScreen.style.display = 'none';
-        document.getElementById("passwordRecoveryFormContainer").classList.add("hidden");
-        document.getElementById("passwordRecoveryFormContainer").classList.remove("active");
-        document.body.style.overflow = "auto"; 
+        authScreen.classList.remove('active');
+        setTimeout(() => {
+            authScreen.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
     }
 
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('register') === 'true') {
-        showAuthScreen('register');
-    } else {
-        showAuthScreen('login');
-    }
+    showAuthScreen(urlParams.get('register') === 'true' ? 'register' : 'login');
 
     toggleAuthLink.addEventListener('click', function(e) {
         e.preventDefault();
@@ -431,17 +511,16 @@ document.addEventListener('DOMContentLoaded', function() {
         authMessage.style.display = 'none';
         authMessage.classList.remove('success', 'error');
 
-        const email = document.getElementById('authEmail').value;
-        const password = document.getElementById('authPassword').value;
+        const email = authEmailField.value;
+        const password = authPasswordField.value;
 
         const universityEmailPattern = /^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$/;
         if (!universityEmailPattern.test(email)) {
-            authMessage.textContent = 'Por favor, ingresa un correo electrónico válido (ej. tu@universidad.edu.pe).';
+            authMessage.textContent = 'Por favor, ingresa un correo electrónico universitario válido (ej. tu@universidad.edu.pe).';
             authMessage.classList.add('error');
             authMessage.style.display = 'block';
-            return; 
+            return;
         }
-
 
         if (isRegisterMode) {
             const name = document.getElementById('authName').value;
@@ -466,8 +545,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 authMessage.classList.add('error');
                 authMessage.style.display = 'block';
             }
-        } else { 
-            if (email && password) {
+        } else {
+            // Updated login logic: accepts pre-defined user or any email with 'password123'
+            if (password === '123456') {
+                if (email !== currentUser.email) {
+                    // Simulate dynamic user creation for non-predefined emails
+                    currentUser = {
+                        name: email.split('@')[0], // Use email prefix as name
+                        email: email,
+                        university: 'Universidad Genérica',
+                        career: 'Carrera (Nueva)',
+                        interests: 'Intereses (Nuevos)'
+                    };
+                }
+
                 authMessage.textContent = 'Inicio de sesión exitoso. Redirigiendo...';
                 authMessage.classList.add('success');
                 authMessage.style.display = 'block';
@@ -479,7 +570,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showSection('dashboard');
                 }, 1500);
             } else {
-                authMessage.textContent = 'Por favor, ingresa tu correo y contraseña.';
+                authMessage.textContent = 'Correo o contraseña incorrectos.';
                 authMessage.classList.add('error');
                 authMessage.style.display = 'block';
             }
@@ -500,14 +591,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     editProfileBtn.addEventListener('click', function() {
-        profileEditFormContainer.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; 
+        showModal(profileEditFormContainer);
     });
 
     cancelEditProfileBtn.addEventListener('click', function() {
-        profileEditFormContainer.classList.add('hidden');
-        profileEditMessage.classList.add('hidden'); 
-        document.body.style.overflow = ''; 
+        hideModal(profileEditFormContainer);
+        profileEditMessage.classList.add('hidden');
     });
 
     profileEditForm.addEventListener('submit', function(e) {
@@ -526,16 +615,15 @@ document.addEventListener('DOMContentLoaded', function() {
             currentUser.career = newCareer;
             currentUser.interests = newInterests;
 
-            updateProfileDisplay(); 
+            updateProfileDisplay();
 
             profileEditMessage.textContent = '¡Perfil actualizado con éxito!';
             profileEditMessage.classList.add('success');
             profileEditMessage.classList.remove('hidden');
 
             setTimeout(() => {
-                profileEditFormContainer.classList.add('hidden');
+                hideModal(profileEditFormContainer);
                 profileEditMessage.classList.add('hidden');
-                document.body.style.overflow = '';
             }, 1500);
         } else {
             profileEditMessage.textContent = 'Por favor, completa todos los campos.';
@@ -545,15 +633,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     createGroupBtn.addEventListener('click', function() {
-        groupCreateFormContainer.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; 
+        showModal(groupCreateFormContainer);
+        groupCreateForm.reset();
     });
 
     cancelCreateGroupBtn.addEventListener('click', function() {
-        groupCreateFormContainer.classList.add('hidden');
-        groupCreateMessage.classList.add('hidden'); 
-        groupCreateForm.reset(); 
-        document.body.style.overflow = ''; 
+        hideModal(groupCreateFormContainer);
+        groupCreateMessage.classList.add('hidden');
+        groupCreateForm.reset();
     });
 
     groupCreateForm.addEventListener('submit', function(e) {
@@ -570,22 +657,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 name: groupName,
                 type: groupType,
                 description: groupDescription,
-                members: 1 
+                members: 1
             };
-            createdGroups.push(newGroup); 
+            createdGroups.push(newGroup);
 
-            renderGroupList(); 
+            renderGroupList();
 
             groupCreateMessage.textContent = `¡Grupo "${groupName}" creado con éxito!`;
             groupCreateMessage.classList.add('success');
             groupCreateMessage.classList.remove('hidden');
 
-            groupCreateForm.reset(); 
+            groupCreateForm.reset();
 
             setTimeout(() => {
-                groupCreateFormContainer.classList.add('hidden');
+                hideModal(groupCreateFormContainer);
                 groupCreateMessage.classList.add('hidden');
-                document.body.style.overflow = '';
             }, 1500);
         } else {
             groupCreateMessage.textContent = 'Por favor, completa todos los campos para crear el grupo.';
@@ -595,19 +681,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     createEventBtn.addEventListener('click', function() {
-        eventCreateFormContainer.classList.remove('hidden');
-        eventCreateFormContainer.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        eventCreateMessage.classList.add('hidden');
+        showModal(eventCreateFormContainer);
         eventCreateForm.reset();
+        eventCreateMessage.classList.add('hidden');
     });
 
     cancelCreateEventBtn.addEventListener('click', function() {
-        eventCreateFormContainer.classList.remove('active');
-        setTimeout(() => {
-            eventCreateFormContainer.classList.add('hidden');
-            document.body.style.overflow = '';
-        }, 300); 
+        hideModal(eventCreateFormContainer);
+        eventCreateMessage.classList.add('hidden');
     });
 
     eventCreateForm.addEventListener('submit', function(e) {
@@ -621,7 +702,8 @@ document.addEventListener('DOMContentLoaded', function() {
             time: document.getElementById('eventTime').value,
             location: document.getElementById('eventLocation').value.trim(),
             organizer: document.getElementById('eventOrganizer').value.trim(),
-            description: document.getElementById('eventDescription').value.trim()
+            description: document.getElementById('eventDescription').value.trim(),
+            category: document.getElementById('eventCategory').value || 'Sin Categoría'
         };
 
         if (!newEvent.name || !newEvent.date || !newEvent.time || !newEvent.location) {
@@ -637,17 +719,30 @@ document.addEventListener('DOMContentLoaded', function() {
         eventCreateMessage.classList.add('success');
         eventCreateMessage.classList.remove('hidden');
 
-        renderEventList();
+        // Only re-render the event list if the 'events' section is currently active
+        if (document.getElementById('events').classList.contains('active')) {
+            renderEventList();
+        }
 
         setTimeout(() => {
-            eventCreateFormContainer.classList.remove('active');
+            hideModal(eventCreateFormContainer);
             eventCreateMessage.classList.add('hidden');
-            setTimeout(() => {
-                eventCreateFormContainer.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 300);
-        }, 2000); 
+        }, 2000);
     });
 
-    showAuthScreen(urlParams.get('register') === 'true' ? 'register' : 'login');
+    // Event listeners for filters
+    if (applyEventFiltersBtn) {
+        applyEventFiltersBtn.addEventListener('click', applyEventFilters);
+    }
+    if (clearEventFiltersBtn) {
+        clearEventFiltersBtn.addEventListener('click', clearEventFilters);
+    }
+    if (eventDateFilter) eventDateFilter.addEventListener('change', applyEventFilters);
+    if (eventCategoryFilter) eventCategoryFilter.addEventListener('change', applyEventFilters);
+    if (eventLocationFilter) eventLocationFilter.addEventListener('keyup', applyEventFilters);
+
+    // Initial setup: ensure filters are hidden when the page loads
+    if (eventFiltersWrapper) {
+        eventFiltersWrapper.classList.add('hidden');
+    }
 });

@@ -1038,6 +1038,14 @@ input:checked+.slider:before {
     font-size: 14px;
 }
 
+#createResourceBtn,
+#createEventBtn {
+    display: block;
+    margin: 30px auto 40px;
+    width: fit-content;
+}
+
+
 .card-buttons {
     display: flex;
     flex-direction: column;

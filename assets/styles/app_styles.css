@@ -992,6 +992,34 @@ input:checked+.slider:before {
     opacity: 1;
 }
 
+.modal-content {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-heavy);
+    max-width: 500px;
+    width: 90%;
+    text-align: left;
+    color: var(--text-color);
+    position: relative;
+}
+
+.modal-content h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-content form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--dark-gray);
+    font-size: 16px;
+}
+
 .event-list {
     margin-top: 20px;
     display: grid;

@@ -737,28 +737,55 @@ input:checked+.slider:before {
     min-height: 80px;
 }
 
-.form-modal-content form button {
+.modal-content form input[type="text"],
+.modal-content form input[type="email"],
+.modal-content form input[type="date"],
+.modal-content form input[type="time"],
+.modal-content form textarea,
+.modal-content form select {
+    width: calc(100% - 24px);
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.modal-content form input:focus,
+.modal-content form textarea:focus,
+.modal-content form select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.modal-content form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.modal-content form button {
     margin-top: 10px;
     margin-right: 10px;
     width: auto;
 }
 
-.form-modal-content form .btn-primary {
+.modal-content form .btn-primary {
     background-color: var(--primary-color);
     color: var(--white);
 }
 
-.form-modal-content form .btn-primary:hover {
+.modal-content form .btn-primary:hover {
     background-color: #C62828;
 }
 
-.form-modal-content form .btn-secondary {
+.modal-content form .btn-secondary {
     background-color: var(--white);
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
 }
 
-.form-modal-content form .btn-secondary:hover {
+.modal-content form .btn-secondary:hover {
     background-color: var(--primary-color);
     color: var(--white);
 }
